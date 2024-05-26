@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Template } from "../../types";
 import { List, ListItem, ListItemText, Button, Dialog } from "@mui/material";
 import TemplatePreview from "./TemplatePreview";
-import axios from "axios";
 import "./TemplateList.css";
 
 interface TemplateListProps {
