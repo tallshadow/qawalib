@@ -1,0 +1,44 @@
+// src/pages/TemplateSelectionPage.tsx
+import React, { useState } from "react";
+import TemplateSelector from "../../components/template/TemplateSelector";
+import { TemplateCategory } from "../../types";
+
+const templateCategories: TemplateCategory[] = [
+  {
+    id: "immobilier",
+    name: "Immobilier et Logement",
+    description: "Templates for real estate and housing matters.",
+  },
+  {
+    id: "consommation",
+    name: "Consommation et Concurrence",
+    description: "Templates for consumer rights and competition.",
+  },
+  {
+    id: "banque",
+    name: "Banque et Crédits",
+    description: "Templates for banking and credit issues.",
+  },
+  // Add more categories as needed
+];
+
+const TemplateSelectionPage: React.FC = () => {
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+
+  const handleCategorySelect = (categoryId: string) => {
+    setSelectedCategory(categoryId);
+    // You might want to navigate to a detailed page for the category or open a modal, etc.
+  };
+
+  return (
+    <div>
+      <TemplateSelector
+        templates={templateCategories}
+        onTemplateSelect={handleCategorySelect}
+      />
+      {selectedCategory && <div>Selected Category: {selectedCategory}</div>}
+    </div>
+  );
+};
+
+export default TemplateSelectionPage;

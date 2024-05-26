@@ -1,0 +1,33 @@
+.template-selector {
+  padding: 1em;
+}
+
+.template-selector h2 {
+  margin-bottom: 0.5em;
+}
+
+.template-selector ul {
+  list-style: none;
+  padding: 0;
+}
+
+.template-selector li {
+  cursor: pointer;
+  background-color: #f0f0f0;
+  margin-bottom: 1em;
+  padding: 1em;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.template-selector li:hover {
+  background-color: #e0e0e0;
+}
+
+.template-selector h3 {
+  margin: 0 0 0.5em 0;
+}
+
+.template-selector p {
+  margin: 0;
+}

@@ -1,0 +1,15 @@
+.search-bar {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 20px;
+}
+
+.template-list {
+  list-style: none;
+  padding: 0;
+}
+
+.template-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}

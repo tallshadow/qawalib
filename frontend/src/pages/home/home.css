@@ -1,0 +1,155 @@
+src/pages/HomePage.css
+
+/* Reset some basic styles */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+div {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  background-color: #ffffff;
+  color: #1d1d1f;
+  direction: rtl; /* Add this for RTL layout */
+  text-align: right; /* Add this for RTL text alignment */
+}
+
+.homepage-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.homepage-title {
+  text-align: right; /* Ensure title is right-aligned */
+  margin-bottom: 20px;
+  color: #000000;
+  font-weight: 700;
+  font-size: 2.5rem;
+}
+
+.homepage-description {
+  text-align: right; /* Ensure description is right-aligned */
+  margin-bottom: 30px;
+  font-size: 1.1em;
+  color: #6e6e73;
+}
+
+.search-bar {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #d2d2d7;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  transition: border-color 0.2s;
+  direction: rtl; /* Add this for RTL layout */
+}
+
+.search-bar:focus {
+  border-color: #0071e3;
+  outline: none;
+}
+
+.templates-section {
+  margin-top: 20px;
+}
+
+.template-category {
+  margin-bottom: 40px;
+}
+
+.category-title {
+  margin-bottom: 15px;
+  color: #000000;
+  font-weight: 600;
+  font-size: 1.5rem;
+  text-align: right; /* Ensure category title is right-aligned */
+}
+
+/* Links and Buttons */
+.categories a,
+button {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 20px;
+  background: #0071e3;
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  direction: rtl; /* Add this for RTL layout */
+}
+
+.categories a:hover,
+button:hover {
+  background: #005bb5;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+  .homepage-title,
+  .homepage-description,
+  .category-title {
+    text-align: center; /* Center-align text on small screens */
+  }
+
+  .categories a,
+  button {
+    display: block;
+    /* width: 100%; */
+    margin: 10px 0;
+  }
+}
+
+.homepage-container {
+  text-align: right;
+}
+
+.homepage-title {
+  text-align: right;
+}
+
+.homepage-description {
+  text-align: right;
+}
+
+.template-category {
+  margin-bottom: 20px;
+}
+
+.category-title {
+  cursor: pointer;
+}
+
+.templates-section {
+  margin-top: 20px;
+}
+
+.templates-section .template-category {
+  background-color: #fff;
+}
+.templates-section .template-category .template-category-list {
+  background-color: rgba(245, 245, 247, 0.8);
+}
