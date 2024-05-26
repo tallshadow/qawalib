@@ -8,12 +8,11 @@ class Database {
   public sequelize: Sequelize | undefined;
 
 
-  private POSTGRES_DB = process.env.POSTGRES_DB as string;
-  private POSTGRES_HOST = process.env.POSTGRES_HOST as string;
-  private POSTGRES_PORT = process.env.POSTGRES_PORT as unknown as number;
-  private POSTGRES_USER = process.env.POSTGRES_USER as unknown as string;
-  private POSTGRES_PASSWORD = process.env
-    .POSTGRES_PASSWORD as unknown as string;
+  private POSTGRES_DB = process.env.POSTGRES_DB || '';
+  private POSTGRES_USER = process.env.POSTGRES_USER || '';
+  private POSTGRES_PASSWORD = process.env.POSTGRES_PASSWORD || '';
+  private POSTGRES_HOST = process.env.POSTGRES_HOST || '';
+  private POSTGRES_PORT = parseInt(process.env.POSTGRES_PORT || '5432', 10);
 
   constructor() {
     this.connectToPostgreSQL();
