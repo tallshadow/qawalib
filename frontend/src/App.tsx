@@ -3,7 +3,6 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { HomePage, CategoryPage } from "./pages";
 import { Navbar, Footer } from "./components";
-import TemplatePage from "./pages/template/TemplatePage";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 

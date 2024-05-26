@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTemplates } from "../../actions/templateActions";
 import { RootState } from "../../reducers";
-import { Template, TemplatesByCategory } from "../../types";
+import { TemplatesByCategory } from "../../types";
 import "./home.css";
 import {
   Typography,

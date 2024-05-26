@@ -51,7 +51,6 @@ const TemplatePreview: React.FC<TemplatePreviewProps> = ({
   const handleDownload = async () => {
     const doc = new jsPDF("p", "mm", "a4");
     const pdfWidth = doc.internal.pageSize.getWidth();
-    const pdfHeight = doc.internal.pageSize.getHeight();
 
     // Create a hidden div with the content
     const element = document.createElement("div");

@@ -1,5 +1,5 @@
 // src/components/template/TemplateList.tsx
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Template } from "../../types";
 import { List, ListItem, ListItemText, Button, Dialog } from "@mui/material";
 import TemplatePreview from "./TemplatePreview";
@@ -18,22 +18,6 @@ const TemplateList: React.FC<TemplateListProps> = ({ templates }) => {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [urlFile, setUrlFile] = useState("");
   const [isPdf, setIsPdf] = useState<boolean>(false);
-
-  const handlePreview2 = async (template: Template) => {
-    try {
-      const response = await axios.get(template.templateFile, {
-        responseType: "arraybuffer",
-      });
-      const decoder = new TextDecoder("utf-8");
-      const content = decoder.decode(new Uint8Array(response.data));
-      console.log("content****", template.templateFile);
-      setFileContent(content);
-      setSelectedTemplate(template);
-      setIsPreviewOpen(true);
-    } catch (error) {
-      console.error("Error fetching template file content", error);
-    }
-  };
 
   async function urlToFile(url: string) {
     try {
