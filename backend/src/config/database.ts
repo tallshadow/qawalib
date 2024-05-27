@@ -3,10 +3,8 @@ import * as dotenv from "dotenv";
 // import { Note } from "../model/Note";
 dotenv.config();
 
-
 class Database {
   public sequelize: Sequelize | undefined;
-
 
   private POSTGRES_DB = process.env.POSTGRES_DB || '';
   private POSTGRES_USER = process.env.POSTGRES_USER || '';
@@ -27,6 +25,12 @@ class Database {
       port: this.POSTGRES_PORT,
       dialect: "postgres",
       // models:[Note]
+      dialectOptions: {
+        ssl: {
+          require: true, // This will ensure SSL is used
+          rejectUnauthorized: false // If you are using self-signed certificates, this line may be necessary
+        }
+      }
     });
     await this.sequelize
       .authenticate()
