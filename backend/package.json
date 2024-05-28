@@ -2,7 +2,7 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "build/api/index.js",
+  "main": "index.js",
   "scripts": {
     "build": "tsc",
     "start": "node build/api/index.js",
