@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = 8000;
 
-app.use("/", (req, res) => res.send("Express on Vercel"));
+app.use("/", (req:any, res:any) => res.send("Express on Vercel"));
 
 app.listen(3000, () => console.log("Server ready on port 3000."));
 
