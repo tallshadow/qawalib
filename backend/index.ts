@@ -1,8 +1,8 @@
 import express from 'express';
-import { sequelize } from './src/config/db'; 
-import categoryRoutes from './src/routes/categoryRoutes';
-import templateRoutes from './src/routes/templateRoutes';
-import fileRoutes from './src/routes/fileRoutes';
+import { sequelize } from './api/config/db'; 
+import categoryRoutes from './api/routes/categoryRoutes';
+import templateRoutes from './api/routes/templateRoutes';
+import fileRoutes from './api/routes/fileRoutes';
 const cors = require('cors');
 
 
