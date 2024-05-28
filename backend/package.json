@@ -7,7 +7,7 @@
     "clean": "rm -rf build",
     "build": "npm run clean && tsc",
     "start": "tsc && node build/index.js",
-    "dev": "nodemon --exec ts-node api/server.ts"
+    "dev": "nodemon --exec ts-node api/index.ts"
   },
   "keywords": [],
   "author": "",
