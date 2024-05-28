@@ -9,13 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Category = void 0;
-// src/models/Category.ts
+exports.SubCategory = void 0;
+// src/models/SubCategory.ts
 const sequelize_typescript_1 = require("sequelize-typescript");
-const SubCategory_1 = require("./SubCategory"); // Ensure this path is correct
-let Category = class Category extends sequelize_typescript_1.Model {
+let SubCategory = class SubCategory extends sequelize_typescript_1.Model {
 };
-exports.Category = Category;
+exports.SubCategory = SubCategory;
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.INTEGER,
@@ -24,32 +23,16 @@ __decorate([
         allowNull: false
     }),
     __metadata("design:type", Number)
-], Category.prototype, "id", void 0);
+], SubCategory.prototype, "id", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.STRING(255),
         allowNull: false
     }),
     __metadata("design:type", String)
-], Category.prototype, "name", void 0);
-__decorate([
-    (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.TEXT,
-        allowNull: true
-    }),
-    __metadata("design:type", String)
-], Category.prototype, "description", void 0);
-__decorate([
-    (0, sequelize_typescript_1.ForeignKey)(() => SubCategory_1.SubCategory),
-    sequelize_typescript_1.Column,
-    __metadata("design:type", Number)
-], Category.prototype, "subCategoryId", void 0);
-__decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => SubCategory_1.SubCategory),
-    __metadata("design:type", SubCategory_1.SubCategory)
-], Category.prototype, "subCategory", void 0);
-exports.Category = Category = __decorate([
+], SubCategory.prototype, "name", void 0);
+exports.SubCategory = SubCategory = __decorate([
     (0, sequelize_typescript_1.Table)({
-        tableName: 'categories'
+        tableName: 'subcategories'
     })
-], Category);
+], SubCategory);

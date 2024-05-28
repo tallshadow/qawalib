@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Template = void 0;
+// src/models/Template.ts
 const sequelize_typescript_1 = require("sequelize-typescript");
 let Template = class Template extends sequelize_typescript_1.Model {
 };
@@ -25,18 +26,25 @@ __decorate([
 ], Template.prototype, "id", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.STRING,
+        type: sequelize_typescript_1.DataType.STRING(255),
         allowNull: false
     }),
     __metadata("design:type", String)
 ], Template.prototype, "name", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.STRING,
+        type: sequelize_typescript_1.DataType.STRING(255),
         allowNull: true
     }),
     __metadata("design:type", String)
 ], Template.prototype, "category", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING(255),
+        allowNull: true
+    }),
+    __metadata("design:type", String)
+], Template.prototype, "subcategory", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.TEXT,
@@ -46,13 +54,13 @@ __decorate([
 ], Template.prototype, "description", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.STRING,
+        type: sequelize_typescript_1.DataType.STRING(1024),
         allowNull: true
     }),
     __metadata("design:type", String)
-], Template.prototype, "s3Url", void 0);
+], Template.prototype, "templateFile", void 0);
 exports.Template = Template = __decorate([
     (0, sequelize_typescript_1.Table)({
-        tableName: 'templates'
+        tableName: 'templates' // Ensure the table name matches your DB schema
     })
 ], Template);
