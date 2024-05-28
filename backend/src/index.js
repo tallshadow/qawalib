@@ -4,10 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const db_1 = require("./src/config/db");
-const categoryRoutes_1 = __importDefault(require("./src/routes/categoryRoutes"));
-const templateRoutes_1 = __importDefault(require("./src/routes/templateRoutes"));
-const fileRoutes_1 = __importDefault(require("./src/routes/fileRoutes"));
+const db_1 = require("./config/db");
+const categoryRoutes_1 = __importDefault(require("./routes/categoryRoutes"));
+const templateRoutes_1 = __importDefault(require("./routes/templateRoutes"));
+const fileRoutes_1 = __importDefault(require("./routes/fileRoutes"));
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = (0, express_1.default)();

@@ -1,14 +1,5 @@
 "use strict";
 // tools/fileConverter.ts
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -34,7 +25,7 @@ const Docxtemplater = require("docxtemplater");
 //     });
 //   });
 // };
-const extractTextFromPDF = (filePath) => __awaiter(void 0, void 0, void 0, function* () {
+const extractTextFromPDF = async (filePath) => {
     return new Promise((resolve, reject) => {
         fs_1.default.readFile(filePath, (err, data) => {
             if (err) {
@@ -55,13 +46,13 @@ const extractTextFromPDF = (filePath) => __awaiter(void 0, void 0, void 0, funct
             }
         });
     });
-});
+};
 exports.extractTextFromPDF = extractTextFromPDF;
-const extractTextFromDocx = (filePath) => __awaiter(void 0, void 0, void 0, function* () {
+const extractTextFromDocx = async (filePath) => {
     try {
         const extractor = new WordExtractor();
         // const extracted = extractor.extract("file.doc");
-        const result = yield extractor.extract(filePath);
+        const result = await extractor.extract(filePath);
         const text = result.getBody();
         return text;
     }
@@ -69,13 +60,13 @@ const extractTextFromDocx = (filePath) => __awaiter(void 0, void 0, void 0, func
         console.error("Error extracting text from DOCX:", error);
         throw error;
     }
-});
+};
 exports.extractTextFromDocx = extractTextFromDocx;
-const extractTextFromDoc = (filePath) => __awaiter(void 0, void 0, void 0, function* () {
+const extractTextFromDoc = async (filePath) => {
     try {
         const extractor = new WordExtractor();
         // const extracted = extractor.extract("file.doc");
-        const result = yield extractor.extract(filePath);
+        const result = await extractor.extract(filePath);
         const text = result.getBody();
         return text;
     }
@@ -83,9 +74,9 @@ const extractTextFromDoc = (filePath) => __awaiter(void 0, void 0, void 0, funct
         console.error("Error extracting text from DOCX:", error);
         throw error;
     }
-});
+};
 exports.extractTextFromDoc = extractTextFromDoc;
-const createWordFile = (content) => __awaiter(void 0, void 0, void 0, function* () {
+const createWordFile = async (content) => {
     try {
         // Load the template
         const templateContent = fs_1.default.readFileSync('templates/template.docx', 'binary');
@@ -109,5 +100,5 @@ const createWordFile = (content) => __awaiter(void 0, void 0, void 0, function* 
     catch (error) {
         console.error('Error creating word file:', error);
     }
-});
+};
 exports.createWordFile = createWordFile;

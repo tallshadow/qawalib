@@ -22,15 +22,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_typescript_1 = require("sequelize-typescript");
 const dotenv = __importStar(require("dotenv"));
@@ -45,31 +36,29 @@ class Database {
         this.POSTGRES_PORT = parseInt(process.env.POSTGRES_PORT || '5432', 10);
         this.connectToPostgreSQL();
     }
-    connectToPostgreSQL() {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.sequelize = new sequelize_typescript_1.Sequelize({
-                database: this.POSTGRES_DB,
-                username: this.POSTGRES_USER,
-                password: this.POSTGRES_PASSWORD,
-                host: this.POSTGRES_HOST,
-                port: this.POSTGRES_PORT,
-                dialect: "postgres",
-                // models:[Note]
-                dialectOptions: {
-                    ssl: {
-                        require: true, // This will ensure SSL is used
-                        rejectUnauthorized: false // If you are using self-signed certificates, this line may be necessary
-                    }
+    async connectToPostgreSQL() {
+        this.sequelize = new sequelize_typescript_1.Sequelize({
+            database: this.POSTGRES_DB,
+            username: this.POSTGRES_USER,
+            password: this.POSTGRES_PASSWORD,
+            host: this.POSTGRES_HOST,
+            port: this.POSTGRES_PORT,
+            dialect: "postgres",
+            // models:[Note]
+            dialectOptions: {
+                ssl: {
+                    require: true, // This will ensure SSL is used
+                    rejectUnauthorized: false // If you are using self-signed certificates, this line may be necessary
                 }
-            });
-            yield this.sequelize
-                .authenticate()
-                .then(() => {
-                console.log("✅ PostgreSQL Connection has been established successfully.");
-            })
-                .catch((err) => {
-                console.error("❌ Unable to connect to the PostgreSQL database:", err);
-            });
+            }
+        });
+        await this.sequelize
+            .authenticate()
+            .then(() => {
+            console.log("✅ PostgreSQL Connection has been established successfully.");
+        })
+            .catch((err) => {
+            console.error("❌ Unable to connect to the PostgreSQL database:", err);
         });
     }
 }
