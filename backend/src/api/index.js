@@ -11,7 +11,7 @@ const fileRoutes_1 = __importDefault(require("../routes/fileRoutes"));
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = (0, express_1.default)();
-const PORT = 3000;
+const PORT = 8000;
 app.use(express_1.default.json());
 app.use(cors());
 // Increase the limit for JSON data
