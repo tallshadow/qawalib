@@ -1,14 +1,14 @@
 import express from 'express';
-import { sequelize } from './src/config/db'; 
-import categoryRoutes from './src/routes/categoryRoutes';
-import templateRoutes from './src/routes/templateRoutes';
-import fileRoutes from './src/routes/fileRoutes';
+import { sequelize } from './config/db'; 
+import categoryRoutes from './routes/categoryRoutes';
+import templateRoutes from './routes/templateRoutes';
+import fileRoutes from './routes/fileRoutes';
 const cors = require('cors');
 
 
 const bodyParser = require('body-parser');
 
-const app = express();
+const app = (module.exports = express());
 const PORT = 8000;
 
 app.use(express.json());
