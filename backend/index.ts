@@ -9,7 +9,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const app = express();
-const PORT = 8000;
+const PORT = 3000;
 
 app.use(express.json());
 app.use(cors());
@@ -25,9 +25,9 @@ app.use('/api', categoryRoutes, templateRoutes, fileRoutes);
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
     // Ensure that your database and Sequelize are initialized here if not already done elsewhere in your setup
-    sequelize.authenticate()
-        .then(() => console.log('Database connected'))
-        .catch(err => console.error('Unable to connect to the database:', err));
+    // sequelize.authenticate()
+    //     .then(() => console.log('Database connected'))
+    //     .catch(err => console.error('Unable to connect to the database:', err));
 });
 
 
