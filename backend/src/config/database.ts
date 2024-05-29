@@ -8,7 +8,7 @@ class Database {
 
   private POSTGRES_DB = process.env.POSTGRES_DB || '';
   private POSTGRES_USER = process.env.POSTGRES_USER || '';
-  private POSTGRES_PASSWORD = process.env.POSTGRES_PASSWORD || '';
+  private POSTGRES_PASS = process.env.POSTGRES_PASS || '';
   private POSTGRES_HOST = process.env.POSTGRES_HOST || '';
   private POSTGRES_PORT = parseInt(process.env.POSTGRES_PORT || '5432', 10);
 
@@ -20,7 +20,7 @@ class Database {
     this.sequelize = new Sequelize({
       database: this.POSTGRES_DB,
       username: this.POSTGRES_USER,
-      password: this.POSTGRES_PASSWORD,
+      password: this.POSTGRES_PASS,
       host: this.POSTGRES_HOST,
       port: this.POSTGRES_PORT,
       dialect: "postgres",
