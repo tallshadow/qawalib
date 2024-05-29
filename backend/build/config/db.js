@@ -10,25 +10,31 @@ const Template_1 = require("../models/Template");
 const dotenv_1 = __importDefault(require("dotenv"));
 const SubCategory_1 = require("../models/SubCategory");
 dotenv_1.default.config();
+console.log('Initializing Sequelize connection...');
+console.log('Database Host:', process.env.POSTGRES_HOST);
+console.log('Database Port:', process.env.POSTGRES_PORT);
+console.log('Database User:', process.env.POSTGRES_USER);
+console.log('Database Name:', process.env.POSTGRES_DATABASE);
 exports.sequelize = new sequelize_typescript_1.Sequelize({
-    dialect: 'postgres', // Specify the dialect
+    dialect: 'postgres',
     host: process.env.POSTGRES_HOST,
-    port: parseInt(process.env.POSTGRES_PORT || '5432'), // Ensure port is a number
+    port: parseInt(process.env.POSTGRES_PORT || '5432'),
     username: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
     database: process.env.POSTGRES_DATABASE,
-    models: [Template_1.Template, Category_1.Category, SubCategory_1.SubCategory], // Include other models as needed
+    models: [Template_1.Template, Category_1.Category, SubCategory_1.SubCategory],
     dialectOptions: {
         ssl: {
             require: true,
-            rejectUnauthorized: false, // This may need to be adjusted based on your security requirements
+            rejectUnauthorized: false,
         },
     },
     modelMatch: (filename, member) => {
         return filename.substring(0, filename.indexOf('.model')) === member.toLowerCase();
     },
 });
-// Optionally, you can synchronize your models with the database
 exports.sequelize.sync({ force: false })
     .then(() => console.log('Database & tables created!'))
-    .catch(err => console.error('Failed to create db: ', err));
+    .catch(err => {
+    console.error('Failed to create db: ', err);
+});
