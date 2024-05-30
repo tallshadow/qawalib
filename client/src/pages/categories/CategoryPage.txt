@@ -1,0 +1,43 @@
+// src/pages/CategoryPage.tsx
+import React, { useState, useEffect } from "react";
+import { List, ListItem, ListItemText, Paper, Typography } from "@mui/material";
+import { Category } from "../../types";
+
+const CategoryPage: React.FC = () => {
+  // State to hold categories
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  // Mock data - ideally, you would fetch this data from a backend service
+  const mockCategories: Category[] = [
+    { id: 1, name: "Immobilier et logement" },
+    { id: 2, name: "Consommation et Concurrence" },
+    { id: 3, name: "Banque et crédits" },
+  ];
+
+  // Effect to fetch categories
+  useEffect(() => {
+    // Simulate fetching data from an API
+    setTimeout(() => {
+      setCategories(mockCategories);
+    }, 1000);
+  }, []);
+
+  return (
+    <div style={{ padding: "20px" }}>
+      <Typography variant="h4" gutterBottom>
+        Categories
+      </Typography>
+      <Paper style={{ maxHeight: 400, overflow: "auto" }}>
+        <List>
+          {categories.map((category) => (
+            <ListItem key={category.id}>
+              <ListItemText primary={category.name} />
+            </ListItem>
+          ))}
+        </List>
+      </Paper>
+    </div>
+  );
+};
+
+export default CategoryPage;

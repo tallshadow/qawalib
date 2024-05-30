@@ -1,0 +1,28 @@
+/* src/components/template/TemplateList.css */
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  direction: rtl; /* Right-to-left text direction */
+}
+
+.list-item-text {
+  text-align: right; /* Align text to the right */
+}
+
+.preview-button {
+  margin-left: 10px; /* Add margin to separate the button from the text */
+}
+
+/* Additional styling for the dialog */
+.dialog {
+  text-align: right; /* Align dialog content to the right */
+}
+
+.dialog-title {
+  text-align: right; /* Align title to the right */
+}
+
+.dialog-content {
+  text-align: right; /* Align content to the right */
+}
