@@ -464,10 +464,13 @@ const TemplateItem: React.FC<TemplateItemProps> = ({
       }
       const formData = new FormData();
       formData.append("file", file);
-      const response = await fetch("/api/convertFileToText", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/api/convertFileToText`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
       const data = await response.text();
       setContent(data);
     } catch (error) {

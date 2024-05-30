@@ -26,34 +26,58 @@ import * as path from 'path';
 //   });
 // };
 
-
-export const extractTextFromPDF = async (filePath: fs.PathOrFileDescriptor): Promise<string> => {
-    return new Promise<string>((resolve, reject) => {
+export const extractTextFromPDF = async (filePath: string): Promise<string> => {
+  return new Promise<string>((resolve, reject) => {
       fs.readFile(filePath, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          pdf(data).then((pdfData: any) => {
-            // Extracted text from PDF
-            let extractedText = pdfData.text;
-  
-            // Apply formatting or encoding here
-            // For example, you can convert to uppercase
-            extractedText = extractedText.toUpperCase();
-  
-            // Resolve with the formatted text
-            resolve(extractedText);
-          }).catch((error: any) => {
-            reject(error);
-          });
-        }
+          if (err) {
+              reject(err);
+          } else {
+              // Assuming pdf is imported correctly
+              pdf(data).then((pdfData: any) => {
+                  // Extracted text from PDF
+                  let extractedText = pdfData.text;
+
+                  // Apply formatting or encoding here
+                  // For example, you can convert to uppercase
+                  extractedText = extractedText.toUpperCase();
+
+                  // Resolve with the formatted text
+                  resolve(extractedText);
+              }).catch((error: any) => {
+                  reject(error);
+              });
+          }
       });
-    });
-  };
+  });
+};
+// export const extractTextFromPDF = async (filePath: fs.PathOrFileDescriptor): Promise<string> => {
+//     return new Promise<string>((resolve, reject) => {
+//       fs.readFile(filePath, (err, data) => {
+//         if (err) {
+//           reject(err);
+//         } else {
+//           pdf(data).then((pdfData: any) => {
+//             // Extracted text from PDF
+//             let extractedText = pdfData.text;
+  
+//             // Apply formatting or encoding here
+//             // For example, you can convert to uppercase
+//             extractedText = extractedText.toUpperCase();
+  
+//             // Resolve with the formatted text
+//             resolve(extractedText);
+//           }).catch((error: any) => {
+//             reject(error);
+//           });
+//         }
+//       });
+//     });
+//   };
 
 
 export const extractTextFromDocx = async (filePath: fs.PathOrFileDescriptor): Promise<string> => {
     try {
+      console.log("filePath***", filePath)
         const extractor = new WordExtractor();
         // const extracted = extractor.extract("file.doc");
         const result = await extractor.extract(filePath);

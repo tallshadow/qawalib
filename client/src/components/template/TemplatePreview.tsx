@@ -115,7 +115,7 @@ const TemplatePreview: React.FC<TemplatePreviewProps> = ({
         )}
       </DialogContent>
       <DialogActions>
-        {isEditing ? (
+        {/* {isEditing ? (
           <>
             {" "}
             <Button onClick={handleSave} color="primary" variant="contained">
@@ -133,7 +133,7 @@ const TemplatePreview: React.FC<TemplatePreviewProps> = ({
           <Button onClick={handleEdit} color="primary" variant="contained">
             Edit
           </Button>
-        )}
+        )} */}
 
         <Button onClick={onClose} color="secondary" variant="contained">
           Close

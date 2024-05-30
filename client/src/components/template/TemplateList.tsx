@@ -1,4 +1,3 @@
-// src/components/template/TemplateList.tsx
 import React, { useState } from "react";
 import { Template } from "../../types";
 import { List, ListItem, ListItemText, Button, Dialog } from "@mui/material";
@@ -52,10 +51,13 @@ const TemplateList: React.FC<TemplateListProps> = ({ templates }) => {
       }
       const formData = new FormData();
       formData.append("file", file);
-      const response = await fetch("/api/convertFileToText", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/api/convertFileToText`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
       const data = await response.text();
 
       setFileContent(data);
@@ -63,6 +65,17 @@ const TemplateList: React.FC<TemplateListProps> = ({ templates }) => {
       setIsPreviewOpen(true);
     } catch (error) {
       console.error("Error fetching template file content", error);
+    }
+  };
+
+  const handleDownload = async (url: string) => {
+    const file = await urlToFile(url);
+    if (file) {
+      const fileUrl = URL.createObjectURL(file);
+      const a = document.createElement("a");
+      a.href = fileUrl;
+      a.download = file.name;
+      a.click();
     }
   };
 
@@ -82,13 +95,24 @@ const TemplateList: React.FC<TemplateListProps> = ({ templates }) => {
               secondary={template.description}
               className="list-item-text"
             />
+
+            {template.templateFile.endsWith(".pdf") && (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => handlePreview(template)}
+                className="preview-button"
+              >
+                Preview
+              </Button>
+            )}
             <Button
               variant="contained"
               color="primary"
-              onClick={() => handlePreview(template)}
-              className="preview-button"
+              onClick={() => handleDownload(template.templateFile)}
+              className="download-button"
             >
-              Preview
+              Download
             </Button>
           </ListItem>
         ))}

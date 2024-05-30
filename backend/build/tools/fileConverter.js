@@ -41,6 +41,7 @@ const extractTextFromPDF = (filePath) => __awaiter(void 0, void 0, void 0, funct
                 reject(err);
             }
             else {
+                // Assuming pdf is imported correctly
                 (0, pdf_parse_1.default)(data).then((pdfData) => {
                     // Extracted text from PDF
                     let extractedText = pdfData.text;
@@ -57,8 +58,30 @@ const extractTextFromPDF = (filePath) => __awaiter(void 0, void 0, void 0, funct
     });
 });
 exports.extractTextFromPDF = extractTextFromPDF;
+// export const extractTextFromPDF = async (filePath: fs.PathOrFileDescriptor): Promise<string> => {
+//     return new Promise<string>((resolve, reject) => {
+//       fs.readFile(filePath, (err, data) => {
+//         if (err) {
+//           reject(err);
+//         } else {
+//           pdf(data).then((pdfData: any) => {
+//             // Extracted text from PDF
+//             let extractedText = pdfData.text;
+//             // Apply formatting or encoding here
+//             // For example, you can convert to uppercase
+//             extractedText = extractedText.toUpperCase();
+//             // Resolve with the formatted text
+//             resolve(extractedText);
+//           }).catch((error: any) => {
+//             reject(error);
+//           });
+//         }
+//       });
+//     });
+//   };
 const extractTextFromDocx = (filePath) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log("filePath***", filePath);
         const extractor = new WordExtractor();
         // const extracted = extractor.extract("file.doc");
         const result = yield extractor.extract(filePath);

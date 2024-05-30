@@ -25,3 +25,10 @@ export const fetchTemplates = (): ThunkAction<void, RootState, unknown, AnyActio
     dispatch({ type: "FETCH_TEMPLATES_FAILURE", error: error.message });
   }
 };
+
+
+
+
+
+
+
