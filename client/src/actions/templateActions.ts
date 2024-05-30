@@ -7,7 +7,8 @@ import axios from "axios";
 export const fetchTemplates = (): ThunkAction<void, RootState, unknown, AnyAction> => async (dispatch) => {
   try {
     dispatch({ type: "FETCH_TEMPLATES_REQUEST" });
-    const response = await axios.get<Template[]>("/api/templates");
+
+    const response = await axios.get<Template[]>(`${process.env.REACT_APP_SERVER_URL}/api/templates`);
     const templates = response.data;
 
     const templatesByCategory = templates.reduce((acc, template) => {
