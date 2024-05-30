@@ -11,9 +11,16 @@ console.log('Database Host:', process.env.POSTGRES_HOST);
 console.log('Database Port:', process.env.POSTGRES_PORT);
 console.log('Database User:', process.env.POSTGRES_USER);
 console.log('Database Name:', process.env.POSTGRES_DATABASE);
+// Add this line to import 'pg'
+import pg from 'pg';
+
+// Use pg as the dialectModule
+pg.defaults.ssl = true;
+
 
 export const sequelize = new Sequelize({
   dialect: 'postgres',
+  dialectModule: pg,
   host: process.env.POSTGRES_HOST,
   port: parseInt(process.env.POSTGRES_PORT || '5432'),
   username: process.env.POSTGRES_USER,
