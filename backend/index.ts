@@ -2,12 +2,12 @@ import express from 'express';
 import { sequelize } from './src/config/db'; 
 import categoryRoutes from './src/routes/categoryRoutes';
 import templateRoutes from './src/routes/templateRoutes';
-import fileRoutes from './src/routes/fileRoutes';
+// import fileRoutes from './src/routes/fileRoutes';
 
 
 const app = express();
 
-app.use('/api', categoryRoutes, templateRoutes, fileRoutes); 
+app.use('/api', categoryRoutes, templateRoutes); 
 app.get("/", (req, res) => res.send("Express on Vercel"));
 
 
