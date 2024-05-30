@@ -7,9 +7,16 @@ import fileRoutes from './src/routes/fileRoutes';
 
 const app = express();
 
+app.use('/api', categoryRoutes, templateRoutes, fileRoutes); 
 app.get("/", (req, res) => res.send("Express on Vercel"));
 
-app.listen(3000, () => console.log("Server ready on port 3000."));
+
+app.listen(3000, () => {console.log("Server ready on port 3000.")
+
+sequelize.authenticate()
+        .then(() => console.log('Database connected'))
+        .catch(err => console.error('Unable to connect to the database:', err));
+});
 
 module.exports = app;
 
