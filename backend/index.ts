@@ -6,7 +6,7 @@ import fileRoutes from './src/routes/fileRoutes';
 
 
 const app = express();
-const PORT = 8000;
+const PORT = 5000;
 // app.get("/", (req:any, res:any) => res.send("Express on Vercel"));
 
 // app.listen(3000, () => console.log("Server ready on port 3000."));
