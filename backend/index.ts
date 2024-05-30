@@ -8,10 +8,10 @@ import templateRoutes from './src/routes/templateRoutes';
 const app = express();
 
 app.use('/api', categoryRoutes, templateRoutes); 
-app.get("/", (req, res) => res.send("Express on Vercel"));
+app.get("/", (req, res) => res.send("Qawalib Server on Vercel"));
 
 
-app.listen(3000, () => {console.log("Server ready on port 3000.")
+app.listen(8000, () => {console.log("Server ready on port 3000.")
 
 sequelize.authenticate()
         .then(() => console.log('Database connected'))
