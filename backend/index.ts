@@ -2,7 +2,7 @@ import express from 'express';
 import { sequelize } from './src/config/db'; 
 import categoryRoutes from './src/routes/categoryRoutes';
 import templateRoutes from './src/routes/templateRoutes';
-import fileRoutes from './src/routes/fileRoutes';
+// import fileRoutes from './src/routes/fileRoutes';
 
 
 // const app = express();
@@ -43,7 +43,7 @@ app.use(bodyParser.json({ limit: '50mb' }));
 // Increase the limit for URL-encoded data
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
-app.use('/api', categoryRoutes, templateRoutes, fileRoutes); 
+app.use('/api', categoryRoutes, templateRoutes); 
 
 
 app.listen(PORT, () => {
