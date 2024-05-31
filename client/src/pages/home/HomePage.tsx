@@ -75,7 +75,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="homepage-container">
-      <Typography variant="h4" className="homepage-title">
+      <Typography variant="h1" className="homepage-title">
         نماذج الخطابات والعقود
       </Typography>
       <Typography paragraph className="homepage-description">

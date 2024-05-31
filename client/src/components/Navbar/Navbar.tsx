@@ -20,16 +20,16 @@ const Navbar: React.FC = () => {
               to="/"
               className="navbar-button"
             >
-              Home
+              الرئيسية
             </Button>
-            <Button
+            {/* <Button
               color="inherit"
               component={Link}
               to="/categories"
               className="navbar-button"
             >
               Categories
-            </Button>
+            </Button> */}
           </div>
         </Toolbar>
       </Container>

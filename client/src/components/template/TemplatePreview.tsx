@@ -102,7 +102,7 @@ const TemplatePreview: React.FC<TemplatePreviewProps> = ({
           // <div dangerouslySetInnerHTML={{ __html: content }} />
           <>
             {isPdf ? (
-              <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.6.172/build/pdf.worker.js">
+              <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.js">
                 <Viewer
                   fileUrl={urlToFile}
                   plugins={[defaultLayoutPluginInstance]}
