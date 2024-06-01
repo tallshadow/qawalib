@@ -2,11 +2,18 @@ import React, { useEffect, useState } from "react";
 import mammoth from "mammoth";
 import { Template } from "../../types";
 import {
+  Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
   Button,
+  CircularProgress,
+  Box,
+  Typography,
 } from "@mui/material";
+
+import DocViewer, { DocViewerRenderers } from "react-doc-viewer";
+
 interface FilePreviewProps {
   fileUrl: string;
   template: Template;
@@ -19,54 +26,75 @@ const FilePreview: React.FC<FilePreviewProps> = ({
   onClose,
 }) => {
   const [htmlContent, setHtmlContent] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(fileUrl)
-      .then((response) => response.arrayBuffer())
-      .then((arrayBuffer) => {
-        mammoth
-          .convertToHtml({ arrayBuffer })
-          .then((result) => {
-            setHtmlContent(result.value);
-          })
-          .catch((error) => {
-            console.error("Error converting .docx to HTML:", error);
-          });
-      });
+    if (fileUrl.endsWith(".docx")) {
+      fetch(fileUrl)
+        .then((response) => response.arrayBuffer())
+        .then((arrayBuffer) => {
+          return mammoth.convertToHtml({ arrayBuffer });
+        })
+        .then((result) => {
+          setHtmlContent(result.value);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error converting .docx to HTML:", error);
+          setError("Failed to load .docx file.");
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
+    }
   }, [fileUrl]);
 
-  const styles = {
-    container: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      height: "100vh",
-      backgroundColor: "#f0f0f0",
-    },
-    document: {
-      //   maxWidth: "800px",
-      width: "100%",
-      padding: "3em",
-      backgroundColor: "#ffffff",
-      boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-      borderRadius: "5px",
-      overflow: "auto",
-    },
-  };
-
   return (
-    <>
+    <Dialog open onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle>{template.name}</DialogTitle>
-      <hr />
       <DialogContent>
-        <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-        <DialogActions>
-          <Button onClick={onClose} color="secondary" variant="contained">
-            Close
-          </Button>
-        </DialogActions>
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          minHeight="400px"
+          p={2}
+          sx={{ backgroundColor: "#f0f0f0", borderRadius: 2 }}
+        >
+          {loading ? (
+            <CircularProgress />
+          ) : error ? (
+            <Typography color="error">{error}</Typography>
+          ) : fileUrl.endsWith(".docx") ? (
+            <Box
+              sx={{
+                width: "100%",
+                maxHeight: "500px",
+                overflowY: "auto",
+                backgroundColor: "#ffffff",
+                boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                borderRadius: "5px",
+                p: 3,
+              }}
+              dangerouslySetInnerHTML={{ __html: htmlContent }}
+            />
+          ) : (
+            <DocViewer
+              pluginRenderers={DocViewerRenderers}
+              documents={[{ uri: fileUrl, fileType: "doc" }]}
+              style={{ width: "100%", height: "500px", borderRadius: "5px" }}
+            />
+          )}
+        </Box>
       </DialogContent>
-    </>
+      <DialogActions>
+        <Button onClick={onClose} color="secondary" variant="contained">
+          Close
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 

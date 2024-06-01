@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Template } from "../../types";
 import {
+  Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
   Button,
+  CircularProgress,
+  Box,
+  Typography,
 } from "@mui/material";
 import ReactQuill from "react-quill";
 import jsPDF from "jspdf";
@@ -32,14 +36,14 @@ const TemplatePreview: React.FC<TemplatePreviewProps> = ({
   const [content, setContent] = useState<string>(fileContent);
   const [isEditing, setIsEditing] = useState(false);
   const [isArabic, setIsArabic] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const isPdf = isPdfFile(template.templateFile);
 
   useEffect(() => {
-    console.log("**content empty****", content);
-    // Check if the content contains Arabic characters
     const arabicRegex = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]/;
     setIsArabic(arabicRegex.test(content));
-  }, [content, isPdf]);
+    setLoading(false);
+  }, [content]);
 
   const handleEdit = () => setIsEditing(true);
 
@@ -52,32 +56,28 @@ const TemplatePreview: React.FC<TemplatePreviewProps> = ({
     const doc = new jsPDF("p", "mm", "a4");
     const pdfWidth = doc.internal.pageSize.getWidth();
 
-    // Create a hidden div with the content
     const element = document.createElement("div");
     element.innerHTML = content;
-    element.style.width = `${pdfWidth * 2}px`; // Adjusting the width for better scaling
+    element.style.width = `${pdfWidth * 2}px`;
     element.style.padding = "20px";
     element.style.boxSizing = "border-box";
-    element.style.fontSize = "12px"; // Adjust the font size as needed
+    element.style.fontSize = "12px";
     if (isArabic) {
-      element.style.direction = "rtl"; // Set text direction to right-to-left for Arabic
-      element.style.textAlign = "right"; // Align text to the right for Arabic
+      element.style.direction = "rtl";
+      element.style.textAlign = "right";
     } else {
-      element.style.direction = "ltr"; // Set text direction to left-to-right for other languages
-      element.style.textAlign = "left"; // Align text to the left for other languages
+      element.style.direction = "ltr";
+      element.style.textAlign = "left";
     }
     document.body.appendChild(element);
 
-    // Convert the div to a canvas
     const canvas = await html2canvas(element, { scale: 2 });
     document.body.removeChild(element);
 
-    // Calculate the image dimensions
     const imgData = canvas.toDataURL("image/png");
     const imgWidth = pdfWidth;
     const imgHeight = (canvas.height * pdfWidth) / canvas.width;
 
-    // Add the canvas image to the PDF
     doc.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
     doc.save(`${template.name}.pdf`);
   };
@@ -85,39 +85,55 @@ const TemplatePreview: React.FC<TemplatePreviewProps> = ({
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
   return (
-    <>
+    <Dialog open onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle>{template.name}</DialogTitle>
-
       <DialogContent>
-        {isEditing && content.trim() ? (
-          <ReactQuill
-            value={content}
-            onChange={setContent}
-            style={{
-              direction: isArabic ? "rtl" : "ltr",
-              textAlign: isArabic ? "right" : "left",
-            }}
-          />
-        ) : (
-          // <div dangerouslySetInnerHTML={{ __html: content }} />
-          <>
-            {isPdf ? (
-              <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.js">
-                <Viewer
-                  fileUrl={urlToFile}
-                  plugins={[defaultLayoutPluginInstance]}
-                />
-              </Worker>
-            ) : (
-              <div dangerouslySetInnerHTML={{ __html: content }} />
-            )}
-          </>
-        )}
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          minHeight="400px"
+          p={2}
+          sx={{ backgroundColor: "#f0f0f0", borderRadius: 2 }}
+        >
+          {loading ? (
+            <CircularProgress />
+          ) : isEditing && content.trim() ? (
+            <ReactQuill
+              value={content}
+              onChange={setContent}
+              style={{
+                direction: isArabic ? "rtl" : "ltr",
+                textAlign: isArabic ? "right" : "left",
+              }}
+            />
+          ) : isPdf ? (
+            <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
+              <Viewer
+                fileUrl={urlToFile}
+                plugins={[defaultLayoutPluginInstance]}
+              />
+            </Worker>
+          ) : (
+            <Box
+              sx={{
+                width: "100%",
+                maxHeight: "500px",
+                overflowY: "auto",
+                backgroundColor: "#ffffff",
+                boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                borderRadius: "5px",
+                p: 3,
+              }}
+              dangerouslySetInnerHTML={{ __html: content }}
+            />
+          )}
+        </Box>
       </DialogContent>
       <DialogActions>
-        {/* {isEditing ? (
+        {isEditing ? (
           <>
-            {" "}
             <Button onClick={handleSave} color="primary" variant="contained">
               Save
             </Button>
@@ -133,13 +149,12 @@ const TemplatePreview: React.FC<TemplatePreviewProps> = ({
           <Button onClick={handleEdit} color="primary" variant="contained">
             Edit
           </Button>
-        )} */}
-
+        )}
         <Button onClick={onClose} color="secondary" variant="contained">
           Close
         </Button>
       </DialogActions>
-    </>
+    </Dialog>
   );
 };
 
