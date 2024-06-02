@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
         <Toolbar disableGutters>
           <div className="navbar-logo">
             <Link to="/" className="navbar-brand">
-              Qawalib
+              Namadej
             </Link>
           </div>
           <div className="navbar-links">
