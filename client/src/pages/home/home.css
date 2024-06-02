@@ -153,3 +153,43 @@ button {
 .templates-section .template-category .template-category-list {
   background-color: rgba(245, 245, 247, 0.8);
 }
+
+.homepage-container {
+  padding: 20px;
+}
+
+.homepage-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.homepage-description {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.templates-section {
+  margin-top: 20px;
+}
+
+.category-card {
+  transition: transform 0.3s;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}

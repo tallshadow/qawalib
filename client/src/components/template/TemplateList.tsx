@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Template } from "../../types";
-import { List, ListItem, ListItemText, Button, Dialog } from "@mui/material";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  Button,
+  Dialog,
+  Pagination,
+} from "@mui/material";
 import TemplatePreview from "./TemplatePreview";
 import FilePreview from "./FilePreview";
 import "./TemplateList.css";
@@ -17,6 +24,8 @@ const TemplateList: React.FC<TemplateListProps> = ({ templates }) => {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [urlFile, setUrlFile] = useState("");
   const [isPdf, setIsPdf] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const categoriesPerPage = 7;
 
   const handlePreview = (template: Template) => {
     setSelectedTemplate(template);
@@ -62,10 +71,25 @@ const TemplateList: React.FC<TemplateListProps> = ({ templates }) => {
     };
   }, [isPreviewOpen, selectedTemplate, isPdf]);
 
+  // Calculate the templates to display for the current page
+  const indexOfLastTemplate = currentPage * categoriesPerPage;
+  const indexOfFirstTemplate = indexOfLastTemplate - categoriesPerPage;
+  const currentTemplates = templates.slice(
+    indexOfFirstTemplate,
+    indexOfLastTemplate
+  );
+
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setCurrentPage(value);
+  };
+
   return (
     <>
       <List>
-        {templates.map((template) => (
+        {currentTemplates.map((template) => (
           <ListItem key={template.id} className="list-item">
             <ListItemText
               primary={template.name}
@@ -95,6 +119,12 @@ const TemplateList: React.FC<TemplateListProps> = ({ templates }) => {
           </ListItem>
         ))}
       </List>
+      <Pagination
+        count={Math.ceil(templates.length / categoriesPerPage)}
+        page={currentPage}
+        onChange={handlePageChange}
+        color="primary"
+      />
       <Dialog
         open={isPreviewOpen}
         onClose={handleClose}

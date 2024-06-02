@@ -6,11 +6,15 @@ import { TemplatesByCategory } from "../../types";
 import "./home.css";
 import {
   Typography,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
+  Grid,
+  Card,
+  CardContent,
+  CardActions,
+  Button,
+  Pagination,
+  CircularProgress,
+  Box,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SearchBar from "../../components/searchBar/SearchBar";
 import TemplateList from "../../components/template/TemplateList";
 
@@ -21,7 +25,9 @@ const HomePage: React.FC = () => {
   );
   const [filteredTemplates, setFilteredTemplates] =
     useState<TemplatesByCategory>(templatesByCategory);
+  const [page, setPage] = useState(1);
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
+  const categoriesPerPage = 6;
 
   useEffect(() => {
     dispatch<any>(fetchTemplates());
@@ -29,13 +35,12 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     setFilteredTemplates(templatesByCategory);
-    setExpandedCategories([]);
   }, [templatesByCategory]);
 
   const handleSearch = (query: string) => {
     if (!query.trim()) {
       setFilteredTemplates(templatesByCategory);
-      setExpandedCategories([]);
+      setPage(1);
       return;
     }
     const filtered = Object.keys(templatesByCategory).reduce(
@@ -59,7 +64,14 @@ const HomePage: React.FC = () => {
     );
 
     setFilteredTemplates(filtered);
-    setExpandedCategories(Object.keys(filtered));
+    setPage(1);
+  };
+
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setPage(value);
   };
 
   const handleAccordionChange = (category: string) => {
@@ -70,8 +82,11 @@ const HomePage: React.FC = () => {
     );
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  const categories = Object.keys(filteredTemplates);
+  const displayedCategories = categories.slice(
+    (page - 1) * categoriesPerPage,
+    page * categoriesPerPage
+  );
 
   return (
     <div className="homepage-container">
@@ -83,26 +98,48 @@ const HomePage: React.FC = () => {
       </Typography>
       <SearchBar onSearch={handleSearch} />
       <div className="templates-section">
-        {Object.entries(filteredTemplates).map(([category, templates]) => (
-          <Accordion
-            key={category}
-            className="template-category"
-            expanded={expandedCategories.includes(category)}
-            onChange={() => handleAccordionChange(category)}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              className="template-category-list"
-            >
-              <Typography variant="h6" className="category-title">
-                {category}
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <TemplateList templates={templates} />
-            </AccordionDetails>
-          </Accordion>
-        ))}
+        {loading ? (
+          <Box className="loading-container">
+            <CircularProgress />
+            <Typography>جار التحميل...</Typography>
+          </Box>
+        ) : error ? (
+          <Typography>Error: {error}</Typography>
+        ) : (
+          <>
+            <Grid container spacing={3}>
+              {displayedCategories.map((category) => (
+                <Grid item xs={12} sm={6} md={4} key={category}>
+                  <Card className="category-card">
+                    <CardContent>
+                      <Typography variant="h6" className="category-title">
+                        {category}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Button
+                        size="small"
+                        color="primary"
+                        onClick={() => handleAccordionChange(category)}
+                      >
+                        عرض القوالب
+                      </Button>
+                    </CardActions>
+                    {expandedCategories.includes(category) && (
+                      <TemplateList templates={filteredTemplates[category]} />
+                    )}
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+            <Pagination
+              count={Math.ceil(categories.length / categoriesPerPage)}
+              page={page}
+              onChange={handlePageChange}
+              className="pagination"
+            />
+          </>
+        )}
       </div>
     </div>
   );
