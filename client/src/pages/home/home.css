@@ -148,7 +148,7 @@ button {
 }
 
 .templates-section .template-category {
-  background-color: #fff;
+  background-color: red;
 }
 .templates-section .template-category .template-category-list {
   background-color: rgba(245, 245, 247, 0.8);
