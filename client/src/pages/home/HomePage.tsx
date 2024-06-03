@@ -101,7 +101,7 @@ const HomePage: React.FC = () => {
         {loading ? (
           <Box className="loading-container">
             <CircularProgress />
-            <Typography>جار التحميل...</Typography>
+            <Typography>جار التحميل ...</Typography>
           </Box>
         ) : error ? (
           <Typography>Error: {error}</Typography>

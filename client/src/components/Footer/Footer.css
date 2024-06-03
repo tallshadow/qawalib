@@ -9,7 +9,7 @@
 }
 
 .footer a {
-  color: #0071e3;
+  color: var(--footer-link-color);
   text-decoration: none;
   margin: 0 10px;
 }

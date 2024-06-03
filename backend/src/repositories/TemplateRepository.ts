@@ -1,6 +1,6 @@
 import { Template } from '../models/Template';
 import { ITemplateRepository } from '../interfaces/ITemplateRepository';
-import s3 from '../config/awsConfig';
+// import s3 from '../config/awsConfig';
 
 import { TemplateInput } from '../types'; // Adjust the path as necessary
 
