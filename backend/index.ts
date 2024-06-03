@@ -4,12 +4,20 @@ import categoryRoutes from './src/routes/categoryRoutes';
 import templateRoutes from './src/routes/templateRoutes';
 import bodyParser from 'body-parser';
 
+const allowedOrigins = [
+  'https://qawalib-frontend.vercel.app',
+  'https://namadej.com',
+  'https://www.namadej.com',
+  'http://localhost:3000'
+];
+
 // Define allowCors function
 const allowCors = (fn: any) => async (req: Request, res: Response) => {
+  const origin = req.headers.origin;
+  if (origin && allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
   res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Origin', '*'); 
-  // another common pattern
-  // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
   res.setHeader(
     'Access-Control-Allow-Headers',
