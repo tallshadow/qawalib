@@ -2,19 +2,28 @@ import express, { Request, Response, NextFunction } from 'express';
 import { sequelize } from './src/config/db'; 
 import categoryRoutes from './src/routes/categoryRoutes';
 import templateRoutes from './src/routes/templateRoutes';
-import cors from 'cors';
 import bodyParser from 'body-parser';
+
+// Define allowCors function
+const allowCors = (fn: any) => async (req: Request, res: Response) => {
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Origin', '*'); 
+  // another common pattern
+  // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  );
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+  return await fn(req, res);
+};
 
 const app = express();
 const PORT = process.env.PORT || 8000;
-
-// Configure CORS
-app.use(cors({
-  origin: ['https://qawalib-frontend.vercel.app', 'https://namadej.com', 'https://www.namadej.com', 'http://localhost:3000'],
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-  optionsSuccessStatus: 204
-}));
 
 // Increase the limit for JSON data
 app.use(bodyParser.json({ limit: '50mb' }));
@@ -22,10 +31,17 @@ app.use(bodyParser.json({ limit: '50mb' }));
 // Increase the limit for URL-encoded data
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
-app.use('/api', categoryRoutes, templateRoutes); 
-
 // Default route for testing
-app.get("/", (req: Request, res: Response) => res.send("Qawalib Server on Vercel"));
+const handler = (req: Request, res: Response) => {
+  const d = new Date();
+  res.end(d.toString());
+};
+
+// Wrap handler with allowCors
+app.get("/", allowCors(handler));
+
+// Apply allowCors middleware to all routes
+app.use('/api', allowCors(categoryRoutes), allowCors(templateRoutes)); 
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
