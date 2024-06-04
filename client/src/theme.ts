@@ -41,6 +41,9 @@ const theme = createTheme({
       fontSize: '1.5rem',
       fontWeight: 600,
       color: '#1d1d1f',
+      letterSpacing: '.007em',
+      lineHeight: '1.1428571429',
+      fontFamily: 'SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif',
     },
     body1: {
       fontSize: '1rem',
@@ -56,12 +59,14 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
+          color:'rgba(0, 0, 0, 0.54)',
           margin: '8px',
           borderRadius: '12px', // Apple's rounded button style
           boxShadow: 'none',
           '&:hover': {
             boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12)', // Subtle hover effect
-            backgroundColor: '#0071e3', // Apple's light hover color
+            backgroundColor: '#f5f5f7', // Apple's light hover color
+            color:'#37373a'
           },
           '&:active': {
             boxShadow: 'inset 0 1px 3px rgba(0, 0, 0, 0.24)', // Active state effect
@@ -72,7 +77,7 @@ const theme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: 'rgb(250, 250, 252)', // Apple's navbar background color
+          backgroundColor: '#ececec', // Apple's navbar background color
           color: '#1d1d1f',
           boxShadow: 'none',
           borderBottom: '1px solid #d2d2d7',
@@ -89,12 +94,13 @@ const theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          backgroundColor: '#f5f5f7cc',
+          backgroundColor: '#ffffff',
           color: '#1d1d1f',
           transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
-          borderRadius: 4,
-          boxShadow: '0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12)',
+          borderRadius: 28,
+          boxSizing: 'border-box',
           overflow: 'hidden',
+          boxShadow:'none'
         },
       },
     },

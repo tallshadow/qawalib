@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchTemplates } from "../../actions/templateActions";
 import { RootState } from "../../reducers";
 import { TemplatesByCategory } from "../../types";
-import "./home.css";
 import {
   Typography,
   Grid,
@@ -17,6 +16,9 @@ import {
 } from "@mui/material";
 import SearchBar from "../../components/searchBar/SearchBar";
 import TemplateList from "../../components/template/TemplateList";
+import "./home.css";
+import { IconButton } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch();
@@ -112,17 +114,28 @@ const HomePage: React.FC = () => {
                 <Grid item xs={12} sm={6} md={4} key={category}>
                   <Card className="category-card">
                     <CardContent>
-                      <Typography variant="h6" className="category-title">
+                      <Typography variant="h3" className="category-title">
                         {category}
                       </Typography>
+                      {/* <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        Some additional description or details about the
+                        category.
+                      </Typography> */}
                     </CardContent>
-                    <CardActions>
+                    <CardActions className="card-actions">
                       <Button
                         size="small"
                         color="primary"
                         onClick={() => handleAccordionChange(category)}
                       >
                         عرض القوالب
+                        <IconButton aria-label="preview">
+                          <VisibilityIcon />
+                        </IconButton>
                       </Button>
                     </CardActions>
                     {expandedCategories.includes(category) && (
