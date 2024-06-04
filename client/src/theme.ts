@@ -59,14 +59,14 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          color:'rgba(0, 0, 0, 0.54)',
+          color:'rgb(51,51,54)',
           margin: '8px',
           borderRadius: '12px', // Apple's rounded button style
           boxShadow: 'none',
           '&:hover': {
             boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12)', // Subtle hover effect
             backgroundColor: '#f5f5f7', // Apple's light hover color
-            color:'#37373a'
+            color:'#0071E3'
           },
           '&:active': {
             boxShadow: 'inset 0 1px 3px rgba(0, 0, 0, 0.24)', // Active state effect
